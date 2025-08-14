@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Grow a Garden Food Recipes</title>
+<style>
+  :root{
+    --bg:#0b0b0b;
+    --panel:#111;
+    --panel2:#1a1a1a;
+    --muted:#888;
+    --accent:#ffcc00;
+    --accent2:#00e6e6;
+    --border:#2a2a2a;
+    --hover:#222;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%}
+  body {
+    margin: 0;
+    background-color: var(--bg);
+    color: #fff;
+    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
+    line-height: 1.45;
+  }
+  header {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+    background: linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.65));
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid var(--border);
+    padding: 16px;
+  }
+  h1 {
+    margin: 0 0 8px;
+    text-align: center;
+    color: var(--accent);
+    letter-spacing: .5px;
+  }
+  .toolbar{
+    display:flex;
+    gap:12px;
+    flex-wrap:wrap;
+    justify-content:center;
+    align-items:center;
+  }
+  .search {
+    flex:1 1 400px;
+    max-width:720px;
+    display:flex;
+    align-items:center;
+    gap:8px;
+    background: var(--panel);
+    border:1px solid var(--border);
+    border-radius: 10px;
+    padding:10px 12px;
+  }
+  .search input{
+    background:transparent;
+    border:none;
+    outline:none;
+    color:#fff;
+    width:100%;
+    font-size:16px;
+  }
+  .btn{
+    background: var(--panel);
+    border:1px solid var(--border);
+    color:#fff;
+    padding:8px 12px;
+    border-radius:10px;
+    cursor:pointer;
+  }
+  .btn:hover{background:var(--hover)}
+  main{
+    padding: 16px;
+    max-width: 1400px;
+    margin: 0 auto;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+    border:1px solid var(--border);
+    border-radius: 12px;
+    overflow:hidden;
+  }
+  thead th {
+    position: sticky;
+    top: 82px; /* header height ~ */
+    background: var(--panel);
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: .6px;
+    border-bottom:1px solid var(--border);
+    padding: 12px 10px;
+    white-space: nowrap;
+  }
+  tbody td, tbody th {
+    border-bottom: 1px solid var(--border);
+    padding: 12px 10px;
+    vertical-align: top;
+  }
+  tbody tr:nth-child(even) { background-color: var(--panel); }
+  tbody tr:nth-child(odd) { background-color: var(--panel2); }
+  tbody tr:hover { background: var(--hover); }
+  strong { color: var(--accent2); }
+  caption {
+    font-size: 1.05rem;
+    color: #ddd;
+    padding: 10px;
+    caption-side: top;
+    text-align:left;
+  }
+  .sortable {
+    cursor: pointer;
+    user-select: none;
+  }
+  .sortable .arrow {
+    opacity: .5;
+    margin-left: 6px;
+    transition: transform .15s ease;
+  }
+  .sortable.asc .arrow { transform: rotate(180deg) }
+  .muted{color:var(--muted)}
+  .note{margin-top:10px; color:#ccc; font-size:13px}
+  .wrap{white-space: pre-line}
+  .pill{
+    display:inline-block; padding:2px 8px; border:1px solid var(--border);
+    border-radius:999px; background:#0f0f0f; color:#ddd; font-size:12px; margin-left:6px;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Grow a Garden Cooking Recipes</h1>
+  <div class="toolbar">
+    <div class="search" title="Type to filter by food or ingredient. Use space to AND terms.">
+      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="7" stroke="#888" stroke-width="2"></circle>
+        <line x1="20" y1="20" x2="16.65" y2="16.65" stroke="#888" stroke-width="2" stroke-linecap="round"></line>
+      </svg>
+      <input id="searchInput" placeholder="Search food or ingredient… (e.g., Bone Blossom, Sugar Apple, Tomato)" autocomplete="off">
+      <button class="btn" id="clearBtn" title="Clear search">Clear</button>
+    </div>
+    <button class="btn" id="expandBtn" title="Expand all cells">Expand All</button>
+    <button class="btn" id="collapseBtn" title="Collapse long cells">Collapse</button>
+    <span class="muted">Click column headers to sort <span class="pill">A⇅Z</span></span>
+  </div>
+</header>
+
+<main>
+  <table id="recipes">
+    <caption>Ingredient combinations by rarity tier per dish • Last updated: Aug 14, 2025</caption>
+    <thead>
+      <tr>
+        <th class="sortable" data-col="0">Food Item <span class="arrow">▾</span></th>
+        <th class="sortable" data-col="1">Mythical <span class="arrow">▾</span></th>
+        <th class="sortable" data-col="2">Divine <span class="arrow">▾</span></th>
+        <th class="sortable" data-col="3">Prismatic <span class="arrow">▾</span></th>
+        <th class="sortable" data-col="4">Transcendent <span class="arrow">▾</span></th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <!-- Soup -->
+      <tr>
+        <td><strong>Soup</strong></td>
+        <td class="wrap">Fallback: any combo that doesn't match a specific dish</td>
+        <td class="wrap">—</td>
+        <td class="wrap">—</td>
+        <td class="wrap">—</td>
+      </tr>
+
+      <!-- Salad -->
+      <tr>
+        <td><strong>Salad</strong></td>
+        <td class="wrap">Tomato + Prismatic Crop
+Sugar Apple + Pepper + Tomato
+Bamboo + Pepper</td>
+        <td class="wrap">3× Prismatic Crop + Tomato
+3× Prismatic Crop + Pineapple + Pepper
+2× Tomato + 3× Bone Blossom</td>
+        <td class="wrap">Grand Tomato + Bone Blossom
+Bamboo + Beanstalk + 3× Bone Blossom</td>
+        <td class="wrap">Grand Tomato/Tomato + 4× Bone Blossom</td>
+      </tr>
+
+      <!-- Sandwich -->
+      <tr>
+        <td><strong>Sandwich</strong></td>
+        <td class="wrap">Tomato + Corn + Elder Strawberry + Sugar Apple + Ember Lily</td>
+        <td class="wrap">3× Bone Blossom + Tomato + Corn/Violet Corn</td>
+        <td class="wrap">Corn + Tomato + 3× Bone Blossom
+Corn + Tomato + 3× Elder Strawberry (craving)</td>
+        <td class="wrap">None confirmed</td>
+      </tr>
+
+      <!-- Pie -->
+      <tr>
+        <td><strong>Pie</strong></td>
+        <td class="wrap">Apple + Pumpkin
+Pumpkin + Ember Lily</td>
+        <td class="wrap">Coconut + Beanstalk
+Coconut + Pepper + Elder Strawberry (×2) + Celestiberry/Firefly Fern
+3× Sugar Apple + Pumpkin</td>
+        <td class="wrap">Pumpkin + 4× Bone Blossom
+Coconut + 2× Bone Blossom</td>
+        <td class="wrap">Coconut + 4× Bone Blossom</td>
+      </tr>
+
+      <!-- Waffle -->
+      <tr>
+        <td><strong>Waffle</strong></td>
+        <td class="wrap">Tranquil Bloom + Starfruit + Coconut
+Grape + Coconut + Dragon Fruit + Cactus + Peach</td>
+        <td class="wrap">Sugar Apple + Coconut
+Sugar Apple + Blood Banana + Sugarglaze + Grape + Bone Blossom</td>
+        <td class="wrap">2× Coconut + 3× Sugar Apple
+Sugarglaze + 2× Bone Blossom</td>
+        <td class="wrap">Sugar Apple + Coconut + 3× Bone Blossom</td>
+      </tr>
+
+      <!-- Hot Dog -->
+      <tr>
+        <td><strong>Hot Dog</strong></td>
+        <td class="wrap">Ember Lily + Corn
+Corn + Bone Blossom</td>
+        <td class="wrap">Corn + 4× Ember Lily
+2× Bone Blossom + 2× Beanstalk + Corn
+3× Bone Blossom + Violet Corn + Lucky Bamboo</td>
+        <td class="wrap">Corn/Violet Corn + Beanstalk + 3× Bone Blossom</td>
+        <td class="wrap">Corn + 4× Bone Blossom
+Violet Corn + 4× Bone Blossom</td>
+      </tr>
+
+      <!-- Ice Cream -->
+      <tr>
+        <td><strong>Ice Cream</strong></td>
+        <td class="wrap">Banana + Sugar Apple
+Sugar Apple + Corn</td>
+        <td class="wrap">3× Sugar Apple + Corn
+Sugarglaze + Sugar Apple</td>
+        <td class="wrap">Sugarglaze + Sugar Apple + 3× Bone Blossom
+Banana + Sugar Apple + 3× Bone Blossom</td>
+        <td class="wrap">Sugarglaze + Sugar Apple + 3× Bone Blossom</td>
+      </tr>
+
+      <!-- Donut -->
+      <tr>
+        <td><strong>Donut</strong></td>
+        <td class="wrap">2× Sugar Apple + 2× Corn
+2× Cacao + Sugarglaze</td>
+        <td class="wrap">3× Sugar Apple + Taco Fern + Sugarglaze
+Banana + 2× Prismatic Crop</td>
+        <td class="wrap">Banana + 4× Bone Blossom
+Sugarglaze + 2× Bone Blossom</td>
+        <td class="wrap">Beanstalk + Sugarglaze + 3× Bone Blossom</td>
+      </tr>
+
+      <!-- Pizza -->
+      <tr>
+        <td><strong>Pizza</strong></td>
+        <td class="wrap">Tomato + Corn + Pepper + 2× Sugar Apple
+Giant Pinecone + Corn + Apple + Mushroom + Pepper</td>
+        <td class="wrap">Sugar Apple + 3× Bone Blossom + Corn
+Pepper + Corn + Sugar Apple + 2× Giant Pinecone</td>
+        <td class="wrap">Violet Corn + Sugar Apple + 3× Bone Blossom</td>
+        <td class="wrap">Beanstalk + Banana + 3× Bone Blossom</td>
+      </tr>
+
+      <!-- Sushi -->
+      <tr>
+        <td><strong>Sushi</strong></td>
+        <td class="wrap">3× Sugar Apple + Bamboo + Corn
+2× Bamboo + 2× Bone Blossom + Corn</td>
+        <td class="wrap">3× Bone Blossom + Bamboo + Corn/Violet Corn</td>
+        <td class="wrap">Corn + Bamboo + Elder Strawberry + 2× Bone Blossom</td>
+        <td class="wrap">None confirmed</td>
+      </tr>
+
+      <!-- Burger -->
+      <tr>
+        <td><strong>Burger</strong></td>
+        <td class="wrap">Pepper + Corn + Tomato + Bone Blossom + Beanstalk
+Pepper + Corn + Tomato + 2× Beanstalk</td>
+        <td class="wrap">3× Bone Blossom + Corn/Violet Corn + Tomato
+Corn + Tomato/Grand Tomato + Elder Strawberry + 2× Bone Blossom</td>
+        <td class="wrap">Sugarglaze + Grand Tomato + 3× Bone Blossom</td>
+        <td class="wrap">None confirmed</td>
+      </tr>
+
+      <!-- Cake -->
+      <tr>
+        <td><strong>Cake</strong></td>
+        <td class="wrap">2× Sugar Apple + 2× Corn
+Sakura Bush + Sugar Apple + Corn + Bone Blossom</td>
+        <td class="wrap">Banana + 3× Prismatic Crop
+Corn + 2× Elder Strawberry + 2× Sugar Apple
+Corn + 4× Sugar Apple</td>
+        <td class="wrap">3× Bone Blossom + Sugar Apple + Sugarglaze
+Banana + 3× Bone Blossom</td>
+        <td class="wrap">None confirmed</td>
+      </tr>
+
+      <!-- Candy Apple -->
+      <tr>
+        <td><strong>Candy Apple</strong></td>
+        <td class="wrap">Sugar Apple + Blueberry</td>
+        <td class="wrap">Sugar Apple + Mango</td>
+        <td class="wrap">Sugar Apple + Elder Strawberry</td>
+        <td class="wrap">Sugar Apple + Bone Blossom
+2× Beanstalk + 3× Sugar Apple
+Sugar Apple + Elder Strawberry + 3× Bone Blossom</td>
+      </tr>
+
+      <!-- Porridge -->
+      <tr>
+        <td><strong>Porridge</strong></td>
+        <td class="wrap">2× Violet Corn + 3× Dragon Fruit</td>
+        <td class="wrap">2× Corn/Violet Corn + 3× Mango</td>
+        <td class="wrap">Corn/Violet Corn + Banana + 3× Bone Blossom
+Corn + 2–3× Sugar Apple</td>
+        <td class="wrap">Banana + Sugar Apple + 3× Bone Blossom</td>
+      </tr>
+
+      <!-- Sweet Tea -->
+      <tr>
+        <td><strong>Sweet Tea</strong></td>
+        <td class="wrap">2× Ember Lily + Burning Bud + Blueberry</td>
+        <td class="wrap">2× Ember Lily + Burning Bud + Blueberry</td>
+        <td class="wrap">4× Sugar Apple + Ember Lily</td>
+        <td class="wrap">2× Candy Blossom + 3× Bone Blossom</td>
+      </tr>
+
+      <!-- Smoothie -->
+      <tr>
+        <td><strong>Smoothie</strong></td>
+        <td class="wrap">Dragon Fruit + Grape</td>
+        <td class="wrap">Apple + Bone Blossom
+Mango + Grand Volcania</td>
+        <td class="wrap">Sugar Apple + Bone Blossom
+Sugar Apple + Burning Bud</td>
+        <td class="wrap">Sugar Apple + 4× Bone Blossom</td>
+      </tr>
+
+      <!-- Spaghetti -->
+      <tr>
+        <td><strong>Spaghetti</strong></td>
+        <td class="wrap">—</td>
+        <td class="wrap">Tomato</td>
+        <td class="wrap">Tomato + Corn + Bell Pepper + 2× Bone Blossom
+Violet Corn + Tomato/Grand Tomato + 2× Bone Blossom + Pepper</td>
+        <td class="wrap">Sugarglaze + Grand Tomato + 3× Bone Blossom</td>
+      </tr>
+
+    </tbody>
+  </table>
+
+  <p class="note">Made by Sanjivram Balasubramanian</p>
+</main>
+
+<script>
+(function(){
+  const table = document.getElementById('recipes');
+  const tbody = table.tBodies[0];
+  const headers = table.querySelectorAll('thead th.sortable');
+  let sortState = {col: 0, dir: 'asc'};
+
+  function normalize(text){
+    return (text || '').toLowerCase().replace(/[^a-z0-9\s×/()+.-]/g,' ').replace(/\s+/g,' ').trim();
+  }
+
+  function compare(a, b){
+    if (a === b) return 0;
+    return a > b ? 1 : -1;
+  }
+
+  function sortBy(col){
+    const dir = (sortState.col === col && sortState.dir === 'asc') ? 'desc' : 'asc';
+    sortState = {col, dir};
+
+    const rows = Array.from(tbody.rows);
+    rows.sort((r1, r2)=>{
+      const t1 = normalize(r1.cells[col]?.innerText || '');
+      const t2 = normalize(r2.cells[col]?.innerText || '');
+      const base = compare(t1, t2);
+      return dir === 'asc' ? base : -base;
+    });
+    // Reattach in sorted order
+    rows.forEach(r=>tbody.appendChild(r));
+
+    headers.forEach(h=>h.classList.remove('asc','desc'));
+    const active = Array.from(headers).find(h => +h.dataset.col === col);
+    if (active){
+      active.classList.add(dir);
+    }
+  }
+
+  headers.forEach(h=>{
+    h.addEventListener('click', ()=> sortBy(+h.dataset.col));
+  });
+
+  // default sort by Food Item asc
+  sortBy(0);
+
+  // Search / filter
+  const input = document.getElementById('searchInput');
+  const clearBtn = document.getElementById('clearBtn');
+  function doFilter(){
+    const terms = normalize(input.value).split(' ').filter(Boolean);
+    for (const row of tbody.rows){
+      const text = normalize(row.innerText);
+      const match = terms.every(t => text.includes(t));
+      row.style.display = match ? '' : 'none';
+    }
+  }
+  input.addEventListener('input', doFilter);
+  clearBtn.addEventListener('click', ()=>{ input.value=''; doFilter(); input.focus(); });
+
+  // Expand / collapse long cells (toggle white-space wrap)
+  const expandBtn = document.getElementById('expandBtn');
+  const collapseBtn = document.getElementById('collapseBtn');
+  function setWrap(on){
+    for (const cell of tbody.querySelectorAll('.wrap')){
+      cell.style.whiteSpace = on ? 'pre-wrap' : 'pre-line';
+    }
+  }
+  expandBtn.addEventListener('click', ()=> setWrap(true));
+  collapseBtn.addEventListener('click', ()=> setWrap(false));
+  setWrap(false);
+})();
+</script>
+
+</body>
+</html>
