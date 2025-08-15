@@ -6,361 +6,720 @@
 <title>Grow a Garden Food Recipes</title>
 <style>
   :root{
-    --bg:#0b0b0b;
-    --panel:#111;
-    --panel2:#1a1a1a;
-    --muted:#888;
-    --accent:#ffcc00;
-    --accent2:#00e6e6;
-    --border:#2a2a2a;
-    --hover:#222;
+    --bg: #0a0a0f;
+    --bg-gradient: linear-gradient(135deg, #0a0a0f 0%, #1a1a2e 50%, #16213e 100%);
+    --panel: #1a1a2e;
+    --panel2: #16213e;
+    --panel-hover: #252545;
+    --muted: #9ca3af;
+    --accent: #fbbf24;
+    --accent2: #06d6a0;
+    --accent3: #8b5cf6;
+    --border: #374151;
+    --hover: #252545;
+    --shadow: rgba(0, 0, 0, 0.25);
+    --text-primary: #f9fafb;
+    --text-secondary: #e5e7eb;
+    --success: #10b981;
+    --warning: #f59e0b;
   }
-  *{box-sizing:border-box}
-  html,body{height:100%}
-  body {
+  
+  * {
+    box-sizing: border-box;
     margin: 0;
-    background-color: var(--bg);
-    color: #fff;
-    font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
-    line-height: 1.45;
+    padding: 0;
   }
+  
+  html, body {
+    height: 100%;
+    scroll-behavior: smooth;
+  }
+  
+  body {
+    background: var(--bg-gradient);
+    background-attachment: fixed;
+    color: var(--text-primary);
+    font-family: 'Segoe UI', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+  }
+  
+  /* Header Improvements */
   header {
     position: sticky;
     top: 0;
-    z-index: 5;
-    background: linear-gradient(180deg, rgba(0,0,0,.9), rgba(0,0,0,.65));
-    backdrop-filter: blur(6px);
-    border-bottom: 1px solid var(--border);
-    padding: 16px;
+    z-index: 100;
+    background: rgba(26, 26, 46, 0.95);
+    backdrop-filter: blur(20px) saturate(180%);
+    border-bottom: 2px solid var(--border);
+    padding: 20px;
+    box-shadow: 0 8px 32px var(--shadow);
   }
+  
   h1 {
-    margin: 0 0 8px;
+    margin: 0 0 16px;
     text-align: center;
-    color: var(--accent);
-    letter-spacing: .5px;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: clamp(1.8rem, 4vw, 2.5rem);
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-shadow: 0 2px 4px var(--shadow);
   }
-  .toolbar{
-    display:flex;
-    gap:12px;
-    flex-wrap:wrap;
-    justify-content:center;
-    align-items:center;
+  
+  .subtitle {
+    text-align: center;
+    color: var(--muted);
+    font-size: 1rem;
+    margin-bottom: 20px;
+    font-weight: 300;
   }
-  .search {
-    flex:1 1 400px;
-    max-width:720px;
-    display:flex;
-    align-items:center;
-    gap:8px;
-    background: var(--panel);
-    border:1px solid var(--border);
-    border-radius: 10px;
-    padding:10px 12px;
-  }
-  .search input{
-    background:transparent;
-    border:none;
-    outline:none;
-    color:#fff;
-    width:100%;
-    font-size:16px;
-  }
-  .btn{
-    background: var(--panel);
-    border:1px solid var(--border);
-    color:#fff;
-    padding:8px 12px;
-    border-radius:10px;
-    cursor:pointer;
-  }
-  .btn:hover{background:var(--hover)}
-  main{
-    padding: 16px;
-    max-width: 1400px;
+  
+  .toolbar {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    max-width: 1200px;
     margin: 0 auto;
   }
+  
+  .search {
+    flex: 1 1 400px;
+    max-width: 600px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    background: var(--panel);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    padding: 14px 18px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.1);
+  }
+  
+  .search:focus-within {
+    border-color: var(--accent);
+    box-shadow: 0 0 0 3px rgba(251, 191, 36, 0.1);
+    transform: translateY(-1px);
+  }
+  
+  .search svg {
+    transition: color 0.3s ease;
+  }
+  
+  .search:focus-within svg {
+    stroke: var(--accent);
+  }
+  
+  .search input {
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-primary);
+    width: 100%;
+    font-size: 16px;
+    font-weight: 400;
+    placeholder-color: var(--muted);
+  }
+  
+  .search input::placeholder {
+    color: var(--muted);
+    font-style: italic;
+  }
+  
+  .btn {
+    background: linear-gradient(135deg, var(--panel), var(--panel2));
+    border: 2px solid var(--border);
+    color: var(--text-primary);
+    padding: 12px 20px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+  }
+  
+  .btn:hover {
+    background: linear-gradient(135deg, var(--panel-hover), var(--hover));
+    border-color: var(--accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+  }
+  
+  .btn:active {
+    transform: translateY(0);
+  }
+  
+  .btn.clear {
+    background: linear-gradient(135deg, var(--warning), #f97316);
+    border-color: var(--warning);
+  }
+  
+  .btn.clear:hover {
+    background: linear-gradient(135deg, #f97316, #ea580c);
+  }
+  
+  /* Main Content */
+  main {
+    padding: 32px 20px;
+    max-width: 1600px;
+    margin: 0 auto;
+  }
+  
+  /* Table Improvements */
+  .table-container {
+    background: var(--panel);
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 12px 48px rgba(0, 0, 0, 0.3);
+    border: 2px solid var(--border);
+  }
+  
   table {
     border-collapse: collapse;
     width: 100%;
     font-size: 14px;
-    border:1px solid var(--border);
-    border-radius: 12px;
-    overflow:hidden;
+    position: relative;
   }
+  
+  caption {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    padding: 20px;
+    text-align: left;
+    font-weight: 500;
+    background: linear-gradient(135deg, var(--panel), var(--panel2));
+    border-bottom: 2px solid var(--border);
+  }
+  
+  .update-badge {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--success), var(--accent2));
+    color: white;
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 12px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  
   thead th {
     position: sticky;
-    top: 82px; /* header height ~ */
-    background: var(--panel);
+    top: 110px;
+    background: linear-gradient(135deg, var(--panel2), var(--panel));
     color: var(--accent);
     text-transform: uppercase;
-    letter-spacing: .6px;
-    border-bottom:1px solid var(--border);
-    padding: 12px 10px;
+    letter-spacing: 1px;
+    border-bottom: 3px solid var(--accent);
+    padding: 18px 16px;
     white-space: nowrap;
+    font-weight: 700;
+    font-size: 13px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
   }
+  
   tbody td, tbody th {
     border-bottom: 1px solid var(--border);
-    padding: 12px 10px;
+    padding: 16px;
     vertical-align: top;
+    position: relative;
   }
-  tbody tr:nth-child(even) { background-color: var(--panel); }
-  tbody tr:nth-child(odd) { background-color: var(--panel2); }
-  tbody tr:hover { background: var(--hover); }
-  strong { color: var(--accent2); }
-  caption {
-    font-size: 1.05rem;
-    color: #ddd;
-    padding: 10px;
-    caption-side: top;
-    text-align:left;
+  
+  tbody tr:nth-child(even) { 
+    background: linear-gradient(135deg, var(--panel), rgba(26, 26, 46, 0.8));
   }
+  
+  tbody tr:nth-child(odd) { 
+    background: linear-gradient(135deg, var(--panel2), rgba(22, 33, 62, 0.8));
+  }
+  
+  tbody tr {
+    transition: all 0.3s ease;
+  }
+  
+  tbody tr:hover { 
+    background: linear-gradient(135deg, var(--panel-hover), var(--hover));
+    transform: scale(1.01);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Food Item Styling */
+  .food-name {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 16px;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .food-icon {
+    width: 20px;
+    height: 20px;
+    background: linear-gradient(135deg, var(--accent2), var(--accent3));
+    border-radius: 50%;
+    display: inline-block;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  /* Recipe Text Styling */
+  .wrap {
+    white-space: pre-line;
+    line-height: 1.8;
+    color: var(--text-secondary);
+  }
+  
+  .recipe-item {
+    display: block;
+    margin-bottom: 8px;
+    padding: 8px 12px;
+    background: rgba(139, 92, 246, 0.1);
+    border-left: 3px solid var(--accent3);
+    border-radius: 0 8px 8px 0;
+    transition: all 0.2s ease;
+  }
+  
+  .recipe-item:hover {
+    background: rgba(139, 92, 246, 0.2);
+    transform: translateX(4px);
+  }
+  
+  .recipe-item:last-child {
+    margin-bottom: 0;
+  }
+  
+  /* Rarity Headers */
+  .rarity-mythical { color: #fbbf24; text-shadow: 0 0 8px #fbbf24; }
+  .rarity-divine { color: #06d6a0; text-shadow: 0 0 8px #06d6a0; }
+  .rarity-prismatic { color: #8b5cf6; text-shadow: 0 0 8px #8b5cf6; }
+  .rarity-transcendent { color: #ef4444; text-shadow: 0 0 8px #ef4444; }
+  
+  /* Sorting */
   .sortable {
     cursor: pointer;
     user-select: none;
+    transition: all 0.3s ease;
   }
+  
+  .sortable:hover {
+    color: var(--text-primary);
+    text-shadow: 0 0 12px currentColor;
+  }
+  
   .sortable .arrow {
-    opacity: .5;
-    margin-left: 6px;
-    transition: transform .15s ease;
+    opacity: 0.6;
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+    display: inline-block;
   }
-  .sortable.asc .arrow { transform: rotate(180deg) }
-  .muted{color:var(--muted)}
-  .note{margin-top:10px; color:#ccc; font-size:13px}
-  .wrap{white-space: pre-line}
-  .pill{
-    display:inline-block; padding:2px 8px; border:1px solid var(--border);
-    border-radius:999px; background:#0f0f0f; color:#ddd; font-size:12px; margin-left:6px;
+  
+  .sortable.asc .arrow { 
+    transform: rotate(180deg);
+    opacity: 1;
+  }
+  
+  .sortable.desc .arrow {
+    opacity: 1;
+  }
+  
+  /* Utility Classes */
+  .muted { color: var(--muted); }
+  
+  .pill {
+    display: inline-block;
+    padding: 4px 12px;
+    border: 2px solid var(--border);
+    border-radius: 20px;
+    background: linear-gradient(135deg, var(--panel2), var(--panel));
+    color: var(--text-secondary);
+    font-size: 12px;
+    font-weight: 600;
+    margin-left: 8px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  }
+  
+  /* Footer */
+  .footer-note {
+    margin-top: 32px;
+    text-align: center;
+    color: var(--muted);
+    font-size: 14px;
+    padding: 20px;
+    background: var(--panel);
+    border-radius: 16px;
+    border: 2px solid var(--border);
+    font-style: italic;
+  }
+  
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .toolbar {
+      flex-direction: column;
+      gap: 12px;
+    }
+    
+    .search {
+      max-width: 100%;
+    }
+    
+    thead th {
+      top: 140px;
+      padding: 12px 8px;
+      font-size: 11px;
+    }
+    
+    tbody td, tbody th {
+      padding: 12px 8px;
+      font-size: 13px;
+    }
+    
+    h1 {
+      font-size: 1.8rem;
+    }
+    
+    table {
+      font-size: 13px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    main {
+      padding: 16px 12px;
+    }
+    
+    .btn {
+      padding: 10px 16px;
+      font-size: 14px;
+    }
+    
+    .search {
+      padding: 12px 16px;
+    }
+  }
+  
+  /* Loading Animation */
+  @keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+  }
+  
+  .loading-shimmer {
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .loading-shimmer::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+    animation: shimmer 2s infinite;
   }
 </style>
 </head>
 <body>
 
 <header>
-  <h1>Grow a Garden Cooking Recipes</h1>
+  <h1>🌱 Grow a Garden Recipes</h1>
+  <p class="subtitle">Master the art of magical cooking with ingredient combinations</p>
   <div class="toolbar">
     <div class="search" title="Type to filter by food or ingredient. Use space to AND terms.">
-      <svg width="18" height="18" viewBox="0 0 24 24" fill="none">
-        <circle cx="11" cy="11" r="7" stroke="#888" stroke-width="2"></circle>
-        <line x1="20" y1="20" x2="16.65" y2="16.65" stroke="#888" stroke-width="2" stroke-linecap="round"></line>
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+        <circle cx="11" cy="11" r="7" stroke="currentColor" stroke-width="2"></circle>
+        <line x1="20" y1="20" x2="16.65" y2="16.65" stroke="currentColor" stroke-width="2" stroke-linecap="round"></line>
       </svg>
-      <input id="searchInput" placeholder="Search food or ingredient… (e.g., Bone Blossom, Sugar Apple, Tomato)" autocomplete="off">
-      <button class="btn" id="clearBtn" title="Clear search">Clear</button>
+      <input id="searchInput" placeholder="Search recipes... (e.g., Bone Blossom, Sugar Apple, Tomato)" autocomplete="off">
+      <button class="btn clear" id="clearBtn" title="Clear search">✕</button>
     </div>
-    <button class="btn" id="expandBtn" title="Expand all cells">Expand All</button>
-    <button class="btn" id="collapseBtn" title="Collapse long cells">Collapse</button>
-    <span class="muted">Click column headers to sort <span class="pill">A⇅Z</span></span>
+    <button class="btn" id="expandBtn" title="Expand all recipe details">📋 Expand</button>
+    <button class="btn" id="collapseBtn" title="Collapse for easier scanning">📄 Collapse</button>
+    <span class="muted">Click headers to sort <span class="pill">A⇅Z</span></span>
   </div>
 </header>
 
 <main>
-  <table id="recipes">
-    <caption>Ingredient combinations by rarity tier per dish • Last updated: Aug 14, 2025</caption>
-    <thead>
-      <tr>
-        <th class="sortable" data-col="0">Food Item <span class="arrow">▾</span></th>
-        <th class="sortable" data-col="1">Mythical <span class="arrow">▾</span></th>
-        <th class="sortable" data-col="2">Divine <span class="arrow">▾</span></th>
-        <th class="sortable" data-col="3">Prismatic <span class="arrow">▾</span></th>
-        <th class="sortable" data-col="4">Transcendent <span class="arrow">▾</span></th>
-      </tr>
-    </thead>
-    <tbody>
+  <div class="table-container">
+    <table id="recipes">
+      <caption>
+        🍽️ Recipe combinations organized by rarity tier
+        <span class="update-badge">Updated Aug 14, 2025</span>
+      </caption>
+      <thead>
+        <tr>
+          <th class="sortable" data-col="0">🍴 Food Item <span class="arrow">▾</span></th>
+          <th class="sortable rarity-normal" data-col="1">⚡ Normal <span class="arrow">▾</span></th>
+          <th class="sortable rarity-mythical" data-col="2">✨ Mythical <span class="arrow">▾</span></th>
+          <th class="sortable rarity-divine" data-col="3">🌟 Divine <span class="arrow">▾</span></th>
+          <th class="sortable rarity-prismatic" data-col="4">🌈 Prismatic <span class="arrow">▾</span></th>
+          <th class="sortable rarity-transcendent" data-col="5">🔥 Transcendent <span class="arrow">▾</span></th>
+        </tr>
+      </thead>
+      <tbody>
 
-      <!-- Soup -->
-      <tr>
-        <td><strong>Soup</strong></td>
-        <td class="wrap">Fallback: any combo that doesn't match a specific dish</td>
-        <td class="wrap">—</td>
-        <td class="wrap">—</td>
-        <td class="wrap">—</td>
-      </tr>
+        <!-- Soup -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Soup</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugar Apple + 1 Ember Lily</div><div class="recipe-item">Random ingredients (fallback)</div><div class="recipe-item">Even carrots work!</div></td>
+          <td class="wrap"><div class="recipe-item">Any combo that doesn't match specific dishes</div></td>
+          <td class="wrap">—</td>
+          <td class="wrap">—</td>
+          <td class="wrap">—</td>
+        </tr>
 
-      <!-- Salad -->
-      <tr>
-        <td><strong>Salad</strong></td>
-        <td class="wrap">Tomato + Prismatic Crop
-Sugar Apple + Pepper + Tomato
-Bamboo + Pepper</td>
-        <td class="wrap">3× Prismatic Crop + Tomato
-3× Prismatic Crop + Pineapple + Pepper
-2× Tomato + 3× Bone Blossom</td>
-        <td class="wrap">Grand Tomato + Bone Blossom
-Bamboo + Beanstalk + 3× Bone Blossom</td>
-        <td class="wrap">Grand Tomato/Tomato + 4× Bone Blossom</td>
-      </tr>
+        <!-- Salad -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Salad</div></td>
+          <td class="wrap"><div class="recipe-item">2 Tomatoes + 1 Corn</div></td>
+          <td class="wrap"><div class="recipe-item">Tomato + Prismatic Crop</div><div class="recipe-item">Sugar Apple + Pepper + Tomato</div><div class="recipe-item">Bamboo + Pepper</div></td>
+          <td class="wrap"><div class="recipe-item">3 Sugar Apples + 1 Pepper + 1 Pineapple</div><div class="recipe-item">3× Prismatic Crop + Tomato</div><div class="recipe-item">2× Tomato + 3× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">4 Bone Blossoms + 1 Tomato</div><div class="recipe-item">Grand Tomato + Bone Blossom</div><div class="recipe-item">Bamboo + Beanstalk + 3× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Grand Tomato + 4 Bone Blossoms</div><div class="recipe-item">Tomato + 4× Bone Blossom</div></td>
+        </tr>
 
-      <!-- Sandwich -->
-      <tr>
-        <td><strong>Sandwich</strong></td>
-        <td class="wrap">Tomato + Corn + Elder Strawberry + Sugar Apple + Ember Lily</td>
-        <td class="wrap">3× Bone Blossom + Tomato + Corn/Violet Corn</td>
-        <td class="wrap">Corn + Tomato + 3× Bone Blossom
-Corn + Tomato + 3× Elder Strawberry (craving)</td>
-        <td class="wrap">None confirmed</td>
-      </tr>
+        <!-- Sandwich -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Sandwich</div></td>
+          <td class="wrap"><div class="recipe-item">2 Tomatoes + 1 Corn</div></td>
+          <td class="wrap"><div class="recipe-item">Tomato + Corn + Elder Strawberry + Sugar Apple + Ember Lily</div></td>
+          <td class="wrap"><div class="recipe-item">3× Bone Blossom + Tomato + Corn/Violet Corn</div></td>
+          <td class="wrap"><div class="recipe-item">3 Elder Strawberries + 1 Tomato + 1 Corn</div><div class="recipe-item">Corn + Tomato + 3× Bone Blossom</div><div class="recipe-item">Corn + Tomato + 3× Elder Strawberry (craving)</div></td>
+          <td class="wrap"><div class="recipe-item">No confirmed recipe yet</div></td>
+        </tr>
 
-      <!-- Pie -->
-      <tr>
-        <td><strong>Pie</strong></td>
-        <td class="wrap">Apple + Pumpkin
-Pumpkin + Ember Lily</td>
-        <td class="wrap">Coconut + Beanstalk
-Coconut + Pepper + Elder Strawberry (×2) + Celestiberry/Firefly Fern
-3× Sugar Apple + Pumpkin</td>
-        <td class="wrap">Pumpkin + 4× Bone Blossom
-Coconut + 2× Bone Blossom</td>
-        <td class="wrap">Coconut + 4× Bone Blossom</td>
-      </tr>
+        <!-- Pie -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Pie</div></td>
+          <td class="wrap"><div class="recipe-item">1 Pumpkin + 1 Apple</div></td>
+          <td class="wrap"><div class="recipe-item">Apple + Pumpkin</div><div class="recipe-item">Pumpkin + Ember Lily</div></td>
+          <td class="wrap"><div class="recipe-item">3 Bone Blossoms + 1 Sugar Apple + 1 Banana</div><div class="recipe-item">Coconut + Beanstalk</div><div class="recipe-item">Coconut + Pepper + Elder Strawberry (×2) + Celestiberry/Firefly Fern</div><div class="recipe-item">3× Sugar Apple + Pumpkin</div></td>
+          <td class="wrap"><div class="recipe-item">3 Bone Blossoms + 1 Sugar Apple + 1 Coconut</div><div class="recipe-item">Pumpkin + 4× Bone Blossom</div><div class="recipe-item">Coconut + 2× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Pumpkin + 4 Bone Blossoms</div><div class="recipe-item">Coconut + 4× Bone Blossom</div></td>
+        </tr>
 
-      <!-- Waffle -->
-      <tr>
-        <td><strong>Waffle</strong></td>
-        <td class="wrap">Tranquil Bloom + Starfruit + Coconut
-Grape + Coconut + Dragon Fruit + Cactus + Peach</td>
-        <td class="wrap">Sugar Apple + Coconut
-Sugar Apple + Blood Banana + Sugarglaze + Grape + Bone Blossom</td>
-        <td class="wrap">2× Coconut + 3× Sugar Apple
-Sugarglaze + 2× Bone Blossom</td>
-        <td class="wrap">Sugar Apple + Coconut + 3× Bone Blossom</td>
-      </tr>
+        <!-- Waffle -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Waffle</div></td>
+          <td class="wrap"><div class="recipe-item">1 Coconut + 1 Strawberry</div></td>
+          <td class="wrap"><div class="recipe-item">Tranquil Bloom + Starfruit + Coconut</div><div class="recipe-item">Grape + Coconut + Dragon Fruit + Cactus + Peach</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugar Apple + 1 Coconut</div><div class="recipe-item">Sugar Apple + Blood Banana + Sugarglaze + Grape + Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">3 Bone Blossoms + 1 Sugar Apple + 1 Pumpkin</div><div class="recipe-item">2× Coconut + 3× Sugar Apple</div><div class="recipe-item">Sugarglaze + 2× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugar Apple + 1 Sugarglaze + 3 Bone Blossoms</div><div class="recipe-item">1 Sugar Apple + 1 Coconut + 3 Bone Blossoms</div></td>
+        </tr>
 
-      <!-- Hot Dog -->
-      <tr>
-        <td><strong>Hot Dog</strong></td>
-        <td class="wrap">Ember Lily + Corn
-Corn + Bone Blossom</td>
-        <td class="wrap">Corn + 4× Ember Lily
-2× Bone Blossom + 2× Beanstalk + Corn
-3× Bone Blossom + Violet Corn + Lucky Bamboo</td>
-        <td class="wrap">Corn/Violet Corn + Beanstalk + 3× Bone Blossom</td>
-        <td class="wrap">Corn + 4× Bone Blossom
-Violet Corn + 4× Bone Blossom</td>
-      </tr>
+        <!-- Hot Dog -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Hot Dog</div></td>
+          <td class="wrap"><div class="recipe-item">1 Pepper + 1 Corn</div></td>
+          <td class="wrap"><div class="recipe-item">Ember Lily + Corn</div><div class="recipe-item">Corn + Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">4 Ember Lilies + 1 Corn</div><div class="recipe-item">Corn + 4× Ember Lily</div><div class="recipe-item">2× Bone Blossom + 2× Beanstalk + Corn</div><div class="recipe-item">3× Bone Blossom + Violet Corn + Lucky Bamboo</div></td>
+          <td class="wrap"><div class="recipe-item">4 Bone Blossoms + 1 Banana</div><div class="recipe-item">Corn/Violet Corn + Beanstalk + 3× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Violet Corn + 4 Bone Blossoms</div><div class="recipe-item">Corn + 4× Bone Blossom</div></td>
+        </tr>
 
-      <!-- Ice Cream -->
-      <tr>
-        <td><strong>Ice Cream</strong></td>
-        <td class="wrap">Banana + Sugar Apple
-Sugar Apple + Corn</td>
-        <td class="wrap">3× Sugar Apple + Corn
-Sugarglaze + Sugar Apple</td>
-        <td class="wrap">Sugarglaze + Sugar Apple + 3× Bone Blossom
-Banana + Sugar Apple + 3× Bone Blossom</td>
-        <td class="wrap">Sugarglaze + Sugar Apple + 3× Bone Blossom</td>
-      </tr>
+        <!-- Ice Cream -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Ice Cream</div></td>
+          <td class="wrap"><div class="recipe-item">1 Corn + 1 Sugar Apple</div></td>
+          <td class="wrap"><div class="recipe-item">Banana + Sugar Apple</div><div class="recipe-item">Sugar Apple + Corn</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugar Apple + 1 Sugarglaze</div><div class="recipe-item">3× Sugar Apple + Corn</div></td>
+          <td class="wrap"><div class="recipe-item">Sugarglaze + Sugar Apple + 3× Bone Blossom</div><div class="recipe-item">Banana + Sugar Apple + 3× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugarglaze + 1 Sugar Apple + 3 Bone Blossoms</div></td>
+        </tr>
 
-      <!-- Donut -->
-      <tr>
-        <td><strong>Donut</strong></td>
-        <td class="wrap">2× Sugar Apple + 2× Corn
-2× Cacao + Sugarglaze</td>
-        <td class="wrap">3× Sugar Apple + Taco Fern + Sugarglaze
-Banana + 2× Prismatic Crop</td>
-        <td class="wrap">Banana + 4× Bone Blossom
-Sugarglaze + 2× Bone Blossom</td>
-        <td class="wrap">Beanstalk + Sugarglaze + 3× Bone Blossom</td>
-      </tr>
+        <!-- Donut -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Donut</div></td>
+          <td class="wrap"><div class="recipe-item">1 Corn + 1 Blueberry + 1 Strawberry</div></td>
+          <td class="wrap"><div class="recipe-item">2× Sugar Apple + 2× Corn</div><div class="recipe-item">2× Cacao + Sugarglaze</div></td>
+          <td class="wrap"><div class="recipe-item">1 Bone Blossom + 1 Sugar Apple + 1 Banana</div><div class="recipe-item">3× Sugar Apple + Taco Fern + Sugarglaze</div><div class="recipe-item">Banana + 2× Prismatic Crop</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugarglaze + 4 Bone Blossoms</div><div class="recipe-item">Banana + 4× Bone Blossom</div><div class="recipe-item">Sugarglaze + 2× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Beanstalk + 1 Sugarglaze + 3 Bone Blossoms</div></td>
+        </tr>
 
-      <!-- Pizza -->
-      <tr>
-        <td><strong>Pizza</strong></td>
-        <td class="wrap">Tomato + Corn + Pepper + 2× Sugar Apple
-Giant Pinecone + Corn + Apple + Mushroom + Pepper</td>
-        <td class="wrap">Sugar Apple + 3× Bone Blossom + Corn
-Pepper + Corn + Sugar Apple + 2× Giant Pinecone</td>
-        <td class="wrap">Violet Corn + Sugar Apple + 3× Bone Blossom</td>
-        <td class="wrap">Beanstalk + Banana + 3× Bone Blossom</td>
-      </tr>
+        <!-- Pizza -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Pizza</div></td>
+          <td class="wrap"><div class="recipe-item">1 Coconut + 1 Cactus + 1 Corn</div></td>
+          <td class="wrap"><div class="recipe-item">Tomato + Corn + Pepper + 2× Sugar Apple</div><div class="recipe-item">Giant Pinecone + Corn + Apple + Mushroom + Pepper</div></td>
+          <td class="wrap"><div class="recipe-item">1 Bone Blossom + 1 Sugar Apple + 1 Corn</div><div class="recipe-item">Sugar Apple + 3× Bone Blossom + Corn</div><div class="recipe-item">Pepper + Corn + Sugar Apple + 2× Giant Pinecone</div></td>
+          <td class="wrap"><div class="recipe-item">3 Bone Blossoms + 1 Sugar Apple + 1 Violet Corn</div><div class="recipe-item">Violet Corn + Sugar Apple + 3× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Corn + 1 Pepper + 1 Strawberry + 1 Tomato</div><div class="recipe-item">Beanstalk + Banana + 3× Bone Blossom</div></td>
+        </tr>
 
-      <!-- Sushi -->
-      <tr>
-        <td><strong>Sushi</strong></td>
-        <td class="wrap">3× Sugar Apple + Bamboo + Corn
-2× Bamboo + 2× Bone Blossom + Corn</td>
-        <td class="wrap">3× Bone Blossom + Bamboo + Corn/Violet Corn</td>
-        <td class="wrap">Corn + Bamboo + Elder Strawberry + 2× Bone Blossom</td>
-        <td class="wrap">None confirmed</td>
-      </tr>
+        <!-- Sushi -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Sushi</div></td>
+          <td class="wrap"><div class="recipe-item">4 Bamboos + 1 Corn</div></td>
+          <td class="wrap"><div class="recipe-item">3× Sugar Apple + Bamboo + Corn</div><div class="recipe-item">2× Bamboo + 2× Bone Blossom + Corn</div></td>
+          <td class="wrap"><div class="recipe-item">1 Bamboo + 1 Corn + 3 Bone Blossoms</div><div class="recipe-item">3× Bone Blossom + Bamboo + Corn/Violet Corn</div></td>
+          <td class="wrap"><div class="recipe-item">Corn + Bamboo + Elder Strawberry + 2× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">No confirmed recipe yet</div></td>
+        </tr>
 
-      <!-- Burger -->
-      <tr>
-        <td><strong>Burger</strong></td>
-        <td class="wrap">Pepper + Corn + Tomato + Bone Blossom + Beanstalk
-Pepper + Corn + Tomato + 2× Beanstalk</td>
-        <td class="wrap">3× Bone Blossom + Corn/Violet Corn + Tomato
-Corn + Tomato/Grand Tomato + Elder Strawberry + 2× Bone Blossom</td>
-        <td class="wrap">Sugarglaze + Grand Tomato + 3× Bone Blossom</td>
-        <td class="wrap">None confirmed</td>
-      </tr>
+        <!-- Burger -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Burger</div></td>
+          <td class="wrap"><div class="recipe-item">1 Pepper + 1 Corn + 1 Tomato</div></td>
+          <td class="wrap"><div class="recipe-item">Pepper + Corn + Tomato + Bone Blossom + Beanstalk</div><div class="recipe-item">Pepper + Corn + Tomato + 2× Beanstalk</div></td>
+          <td class="wrap"><div class="recipe-item">3 Bone Blossoms + 1 Corn + 1 Tomato</div><div class="recipe-item">3× Bone Blossom + Corn/Violet Corn + Tomato</div><div class="recipe-item">Corn + Tomato/Grand Tomato + Elder Strawberry + 2× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">3 Bone Blossoms + 1 Corn + 1 Tomato</div><div class="recipe-item">Sugarglaze + Grand Tomato + 3× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugarglaze + 1 Grand Tomato + 3 Bone Blossoms</div></td>
+        </tr>
 
-      <!-- Cake -->
-      <tr>
-        <td><strong>Cake</strong></td>
-        <td class="wrap">2× Sugar Apple + 2× Corn
-Sakura Bush + Sugar Apple + Corn + Bone Blossom</td>
-        <td class="wrap">Banana + 3× Prismatic Crop
-Corn + 2× Elder Strawberry + 2× Sugar Apple
-Corn + 4× Sugar Apple</td>
-        <td class="wrap">3× Bone Blossom + Sugar Apple + Sugarglaze
-Banana + 3× Bone Blossom</td>
-        <td class="wrap">None confirmed</td>
-      </tr>
+        <!-- Cake -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Cake</div></td>
+          <td class="wrap"><div class="recipe-item">2 Strawberries + 1 Banana + 1 Ember Lily</div></td>
+          <td class="wrap"><div class="recipe-item">2× Sugar Apple + 2× Corn</div><div class="recipe-item">Sakura Bush + Sugar Apple + Corn + Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">4 Sugar Apples + 1 Corn</div><div class="recipe-item">Banana + 3× Prismatic Crop</div><div class="recipe-item">Corn + 2× Elder Strawberry + 2× Sugar Apple</div></td>
+          <td class="wrap"><div class="recipe-item">3 Bone Blossoms + 1 Banana + 1 Sugar Apple</div><div class="recipe-item">3× Bone Blossom + Sugar Apple + Sugarglaze</div><div class="recipe-item">Banana + 3× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">1 Banana + 1 Sugar Apple + 3 Bone Blossoms</div></td>
+        </tr>
 
-      <!-- Candy Apple -->
-      <tr>
-        <td><strong>Candy Apple</strong></td>
-        <td class="wrap">Sugar Apple + Blueberry</td>
-        <td class="wrap">Sugar Apple + Mango</td>
-        <td class="wrap">Sugar Apple + Elder Strawberry</td>
-        <td class="wrap">Sugar Apple + Bone Blossom
-2× Beanstalk + 3× Sugar Apple
-Sugar Apple + Elder Strawberry + 3× Bone Blossom</td>
-      </tr>
+        <!-- Candy Apple -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Candy Apple</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugar Apple + basic fruit</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Blueberry</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Mango</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Elder Strawberry</div><div class="recipe-item">1 Burning Bud + 1 Tomato + 1 Giant Pinecone + 1 Sugar Apple + 1 Elder Strawberry</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Bone Blossom</div><div class="recipe-item">2× Beanstalk + 3× Sugar Apple</div><div class="recipe-item">Sugar Apple + Elder Strawberry + 3× Bone Blossom</div></td>
+        </tr>
 
-      <!-- Porridge -->
-      <tr>
-        <td><strong>Porridge</strong></td>
-        <td class="wrap">2× Violet Corn + 3× Dragon Fruit</td>
-        <td class="wrap">2× Corn/Violet Corn + 3× Mango</td>
-        <td class="wrap">Corn/Violet Corn + Banana + 3× Bone Blossom
-Corn + 2–3× Sugar Apple</td>
-        <td class="wrap">Banana + Sugar Apple + 3× Bone Blossom</td>
-      </tr>
+        <!-- Porridge -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Porridge</div></td>
+          <td class="wrap"><div class="recipe-item">Basic grains + fruit</div></td>
+          <td class="wrap"><div class="recipe-item">2× Violet Corn + 3× Dragon Fruit</div></td>
+          <td class="wrap"><div class="recipe-item">2× Corn/Violet Corn + 3× Mango</div></td>
+          <td class="wrap"><div class="recipe-item">Corn/Violet Corn + Banana + 3× Bone Blossom</div><div class="recipe-item">Corn + 2–3× Sugar Apple</div></td>
+          <td class="wrap"><div class="recipe-item">1 Mango + 1 Tomato + 1 Sugarglaze + 2 Sugar Apples</div><div class="recipe-item">1 Banana + 1 Sugar Apple + 3 Bone Blossoms</div></td>
+        </tr>
 
-      <!-- Sweet Tea -->
-      <tr>
-        <td><strong>Sweet Tea</strong></td>
-        <td class="wrap">2× Ember Lily + Burning Bud + Blueberry</td>
-        <td class="wrap">2× Ember Lily + Burning Bud + Blueberry</td>
-        <td class="wrap">4× Sugar Apple + Ember Lily</td>
-        <td class="wrap">2× Candy Blossom + 3× Bone Blossom</td>
-      </tr>
+        <!-- Sweet Tea -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Sweet Tea</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar + tea leaves</div></td>
+          <td class="wrap"><div class="recipe-item">2× Ember Lily + Burning Bud + Blueberry</div></td>
+          <td class="wrap"><div class="recipe-item">2× Ember Lily + Burning Bud + Blueberry</div></td>
+          <td class="wrap"><div class="recipe-item">4× Sugar Apple + Ember Lily</div></td>
+          <td class="wrap"><div class="recipe-item">2 Candy Blossoms + 3 Bone Blossoms</div></td>
+        </tr>
 
-      <!-- Smoothie -->
-      <tr>
-        <td><strong>Smoothie</strong></td>
-        <td class="wrap">Dragon Fruit + Grape</td>
-        <td class="wrap">Apple + Bone Blossom
-Mango + Grand Volcania</td>
-        <td class="wrap">Sugar Apple + Bone Blossom
-Sugar Apple + Burning Bud</td>
-        <td class="wrap">Sugar Apple + 4× Bone Blossom</td>
-      </tr>
+        <!-- Smoothie -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Smoothie</div></td>
+          <td class="wrap"><div class="recipe-item">Mixed fruits</div></td>
+          <td class="wrap"><div class="recipe-item">Dragon Fruit + Grape</div></td>
+          <td class="wrap"><div class="recipe-item">Apple + Bone Blossom</div><div class="recipe-item">Mango + Grand Volcania</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Bone Blossom</div><div class="recipe-item">Sugar Apple + Burning Bud</div></td>
+          <td class="wrap"><div class="recipe-item">1 Sugar Apple + 3 Bone Blossoms</div><div class="recipe-item">1 Coconut + 4 Bone Blossoms</div></td>
+        </tr>
 
-      <!-- Spaghetti -->
-      <tr>
-        <td><strong>Spaghetti</strong></td>
-        <td class="wrap">—</td>
-        <td class="wrap">Tomato</td>
-        <td class="wrap">Tomato + Corn + Bell Pepper + 2× Bone Blossom
-Violet Corn + Tomato/Grand Tomato + 2× Bone Blossom + Pepper</td>
-        <td class="wrap">Sugarglaze + Grand Tomato + 3× Bone Blossom</td>
-      </tr>
+        <!-- Spaghetti -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Spaghetti</div></td>
+          <td class="wrap"><div class="recipe-item">Basic pasta + sauce</div></td>
+          <td class="wrap">—</td>
+          <td class="wrap"><div class="recipe-item">Tomato</div></td>
+          <td class="wrap"><div class="recipe-item">Tomato + Corn + Bell Pepper + 2× Bone Blossom</div><div class="recipe-item">Violet Corn + Tomato/Grand Tomato + 2× Bone Blossom + Pepper</div></td>
+          <td class="wrap"><div class="recipe-item">Sugarglaze + Grand Tomato + 3× Bone Blossom</div></td>
+        </tr>
 
-    </tbody>
-  </table>
+      </tbody>3× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">Beanstalk + Banana + 3× Bone Blossom</div></td>
+        </tr>
 
-  <p class="note">Made by Sanjivram Balasubramanian</p>
+        <!-- Sushi -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Sushi</div></td>
+          <td class="wrap"><div class="recipe-item">3× Sugar Apple + Bamboo + Corn</div><div class="recipe-item">2× Bamboo + 2× Bone Blossom + Corn</div></td>
+          <td class="wrap"><div class="recipe-item">3× Bone Blossom + Bamboo + Corn/Violet Corn</div></td>
+          <td class="wrap"><div class="recipe-item">Corn + Bamboo + Elder Strawberry + 2× Bone Blossom</div></td>
+          <td class="wrap">None confirmed</td>
+        </tr>
+
+        <!-- Burger -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Burger</div></td>
+          <td class="wrap"><div class="recipe-item">Pepper + Corn + Tomato + Bone Blossom + Beanstalk</div><div class="recipe-item">Pepper + Corn + Tomato + 2× Beanstalk</div></td>
+          <td class="wrap"><div class="recipe-item">3× Bone Blossom + Corn/Violet Corn + Tomato</div><div class="recipe-item">Corn + Tomato/Grand Tomato + Elder Strawberry + 2× Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">Sugarglaze + Grand Tomato + 3× Bone Blossom</div></td>
+          <td class="wrap">None confirmed</td>
+        </tr>
+
+        <!-- Cake -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Cake</div></td>
+          <td class="wrap"><div class="recipe-item">2× Sugar Apple + 2× Corn</div><div class="recipe-item">Sakura Bush + Sugar Apple + Corn + Bone Blossom</div></td>
+          <td class="wrap"><div class="recipe-item">Banana + 3× Prismatic Crop</div><div class="recipe-item">Corn + 2× Elder Strawberry + 2× Sugar Apple</div><div class="recipe-item">Corn + 4× Sugar Apple</div></td>
+          <td class="wrap"><div class="recipe-item">3× Bone Blossom + Sugar Apple + Sugarglaze</div><div class="recipe-item">Banana + 3× Bone Blossom</div></td>
+          <td class="wrap">None confirmed</td>
+        </tr>
+
+        <!-- Candy Apple -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Candy Apple</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Blueberry</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Mango</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Elder Strawberry</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Bone Blossom</div><div class="recipe-item">2× Beanstalk + 3× Sugar Apple</div><div class="recipe-item">Sugar Apple + Elder Strawberry + 3× Bone Blossom</div></td>
+        </tr>
+
+        <!-- Porridge -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Porridge</div></td>
+          <td class="wrap"><div class="recipe-item">2× Violet Corn + 3× Dragon Fruit</div></td>
+          <td class="wrap"><div class="recipe-item">2× Corn/Violet Corn + 3× Mango</div></td>
+          <td class="wrap"><div class="recipe-item">Corn/Violet Corn + Banana + 3× Bone Blossom</div><div class="recipe-item">Corn + 2–3× Sugar Apple</div></td>
+          <td class="wrap"><div class="recipe-item">Banana + Sugar Apple + 3× Bone Blossom</div></td>
+        </tr>
+
+        <!-- Sweet Tea -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Sweet Tea</div></td>
+          <td class="wrap"><div class="recipe-item">2× Ember Lily + Burning Bud + Blueberry</div></td>
+          <td class="wrap"><div class="recipe-item">2× Ember Lily + Burning Bud + Blueberry</div></td>
+          <td class="wrap"><div class="recipe-item">4× Sugar Apple + Ember Lily</div></td>
+          <td class="wrap"><div class="recipe-item">2× Candy Blossom + 3× Bone Blossom</div></td>
+        </tr>
+
+        <!-- Smoothie -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Smoothie</div></td>
+          <td class="wrap"><div class="recipe-item">Dragon Fruit + Grape</div></td>
+          <td class="wrap"><div class="recipe-item">Apple + Bone Blossom</div><div class="recipe-item">Mango + Grand Volcania</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + Bone Blossom</div><div class="recipe-item">Sugar Apple + Burning Bud</div></td>
+          <td class="wrap"><div class="recipe-item">Sugar Apple + 4× Bone Blossom</div></td>
+        </tr>
+
+        <!-- Spaghetti -->
+        <tr>
+          <td><div class="food-name"><span class="food-icon"></span>Spaghetti</div></td>
+          <td class="wrap">—</td>
+          <td class="wrap"><div class="recipe-item">Tomato</div></td>
+          <td class="wrap"><div class="recipe-item">Tomato + Corn + Bell Pepper + 2× Bone Blossom</div><div class="recipe-item">Violet Corn + Tomato/Grand Tomato + 2× Bone Blossom + Pepper</div></td>
+          <td class="wrap"><div class="recipe-item">Sugarglaze + Grand Tomato + 3× Bone Blossom</div></td>
+        </tr>
+
+      </tbody>
+    </table>
+  </div>
+
+  <div class="footer-note">
+    ✨ Crafted with care by Sanjivram Balasubramanian • Happy cooking, gardeners! 🌱
+  </div>
 </main>
 
 <script>
@@ -370,8 +729,12 @@ Violet Corn + Tomato/Grand Tomato + 2× Bone Blossom + Pepper</td>
   const headers = table.querySelectorAll('thead th.sortable');
   let sortState = {col: 0, dir: 'asc'};
 
+  // Enhanced normalization for better search
   function normalize(text){
-    return (text || '').toLowerCase().replace(/[^a-z0-9\s×/()+.-]/g,' ').replace(/\s+/g,' ').trim();
+    return (text || '').toLowerCase()
+      .replace(/[^a-z0-9\s×/()+.-]/g, ' ')
+      .replace(/\s+/g, ' ')
+      .trim();
   }
 
   function compare(a, b){
@@ -390,48 +753,148 @@ Violet Corn + Tomato/Grand Tomato + 2× Bone Blossom + Pepper</td>
       const base = compare(t1, t2);
       return dir === 'asc' ? base : -base;
     });
-    // Reattach in sorted order
-    rows.forEach(r=>tbody.appendChild(r));
+    
+    // Smooth reordering animation
+    rows.forEach((row, index) => {
+      tbody.appendChild(row);
+      row.style.animation = `fadeIn 0.3s ease ${index * 0.02}s both`;
+    });
 
-    headers.forEach(h=>h.classList.remove('asc','desc'));
+    // Update header states
+    headers.forEach(h => h.classList.remove('asc','desc'));
     const active = Array.from(headers).find(h => +h.dataset.col === col);
     if (active){
       active.classList.add(dir);
     }
   }
 
-  headers.forEach(h=>{
-    h.addEventListener('click', ()=> sortBy(+h.dataset.col));
+  // Add click handlers to sortable headers
+  headers.forEach(h => {
+    h.addEventListener('click', () => {
+      sortBy(+h.dataset.col);
+      // Add click feedback
+      h.style.transform = 'scale(0.98)';
+      setTimeout(() => h.style.transform = '', 150);
+    });
   });
 
-  // default sort by Food Item asc
+  // Default sort by Food Item asc
   sortBy(0);
 
-  // Search / filter
+  // Enhanced search functionality
   const input = document.getElementById('searchInput');
   const clearBtn = document.getElementById('clearBtn');
+  let searchTimeout;
+
   function doFilter(){
     const terms = normalize(input.value).split(' ').filter(Boolean);
+    let visibleCount = 0;
+    
     for (const row of tbody.rows){
       const text = normalize(row.innerText);
       const match = terms.every(t => text.includes(t));
       row.style.display = match ? '' : 'none';
+      if (match) visibleCount++;
+      
+      // Add highlight animation for newly visible rows
+      if (match && row.style.display === 'none') {
+        row.style.animation = 'fadeIn 0.3s ease both';
+      }
+    }
+    
+    // Update search feedback
+    if (terms.length > 0) {
+      input.style.borderColor = visibleCount > 0 ? 'var(--success)' : 'var(--warning)';
+    } else {
+      input.style.borderColor = 'var(--border)';
     }
   }
-  input.addEventListener('input', doFilter);
-  clearBtn.addEventListener('click', ()=>{ input.value=''; doFilter(); input.focus(); });
 
-  // Expand / collapse long cells (toggle white-space wrap)
+  // Debounced search for better performance
+  input.addEventListener('input', () => {
+    clearTimeout(searchTimeout);
+    searchTimeout = setTimeout(doFilter, 150);
+  });
+
+  // Enhanced clear button
+  clearBtn.addEventListener('click', () => { 
+    input.value = '';
+    input.style.borderColor = 'var(--border)';
+    doFilter();
+    input.focus();
+    
+    // Add visual feedback
+    clearBtn.style.transform = 'rotate(90deg) scale(0.9)';
+    setTimeout(() => clearBtn.style.transform = '', 200);
+  });
+
+  // Expand / collapse functionality with better UX
   const expandBtn = document.getElementById('expandBtn');
   const collapseBtn = document.getElementById('collapseBtn');
-  function setWrap(on){
-    for (const cell of tbody.querySelectorAll('.wrap')){
-      cell.style.whiteSpace = on ? 'pre-wrap' : 'pre-line';
-    }
+  let isExpanded = false;
+
+  function setWrap(expand){
+    isExpanded = expand;
+    const cells = tbody.querySelectorAll('.wrap');
+    
+    cells.forEach((cell, index) => {
+      setTimeout(() => {
+        cell.style.whiteSpace = expand ? 'pre-wrap' : 'pre-line';
+        cell.style.animation = 'fadeIn 0.2s ease both';
+      }, index * 10);
+    });
+    
+    // Update button states
+    expandBtn.style.opacity = expand ? '0.6' : '1';
+    collapseBtn.style.opacity = expand ? '1' : '0.6';
   }
-  expandBtn.addEventListener('click', ()=> setWrap(true));
-  collapseBtn.addEventListener('click', ()=> setWrap(false));
+
+  expandBtn.addEventListener('click', () => {
+    setWrap(true);
+    expandBtn.style.transform = 'scale(0.95)';
+    setTimeout(() => expandBtn.style.transform = '', 150);
+  });
+
+  collapseBtn.addEventListener('click', () => {
+    setWrap(false);
+    collapseBtn.style.transform = 'scale(0.95)';
+    setTimeout(() => collapseBtn.style.transform = '', 150);
+  });
+
+  // Initialize in collapsed state
   setWrap(false);
+
+  // Add keyboard shortcuts
+  document.addEventListener('keydown', (e) => {
+    // Ctrl/Cmd + F to focus search
+    if ((e.ctrlKey || e.metaKey) && e.key === 'f') {
+      e.preventDefault();
+      input.focus();
+      input.select();
+    }
+    
+    // Escape to clear search
+    if (e.key === 'Escape' && document.activeElement === input) {
+      clearBtn.click();
+    }
+  });
+
+  // Add loading animation on page load
+  tbody.style.opacity = '0';
+  setTimeout(() => {
+    tbody.style.transition = 'opacity 0.5s ease';
+    tbody.style.opacity = '1';
+  }, 100);
+
+  // Add CSS animation keyframes
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  `;
+  document.head.appendChild(style);
 })();
 </script>
 
